@@ -1,22 +1,36 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziende</title>
-</head>
-<body>
+{% extends 'News/base.html' %}
 
-        <h3>Inserisci Azienda</h3>
+{% block title %}{% if form.instance.pk %}Modifica Azienda{% else %}Nuova Azienda{% endif %}{% endblock %}
 
-    <form method="POST">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="Invia">
-
-    </form>
-
-</body>
-</html>
-
-
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">
+                    {% if form.instance.pk %}Modifica Azienda{% else %}Inserisci Nuova Azienda{% endif %}
+                </h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label">{{ field.label }}</label>
+                        {% if field.errors %}
+                            <div class="alert alert-danger">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-control">
+                            {{ field }}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Salva</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

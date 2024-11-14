@@ -1,24 +1,29 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziende</title>
-</head>
-<body>
+{% extends 'News/base.html' %}
 
-        <h3>Lista Utenti</h3>
+{% block title %}Utenti{% endblock %}
 
-    {% for x in utente %}
-        {{ x.nome}} <br>
-        {{ x.cognome}} <br>
-        {{ x.residenza}} <br>
-        {{ x.nascita}} <br>
-        {{ x.assunzione}} <br>
-        {{ x.ruolo}} <br><br><br><hr>
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <h2 class="text-center mb-4">Lista Utenti</h2>
+        <div class="text-end mb-3">
+            <a href="{% url 'insert-utente' %}" class="btn btn-primary">Aggiungi Utente</a>
+        </div>
+    </div>
+    {% for ut in utente %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ ut.nome }} {{ ut.cognome }}</h5>
+                <p class="card-text">Email: {{ ut.email }}</p>
+                <a href="{% url 'update-utente' ut.pk %}" class="btn btn-primary">Modifica</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center">Nessun utente presente</p>
+    </div>
     {% endfor %}
-
-</body>
-</html>
-
-
+</div>
+{% endblock %}

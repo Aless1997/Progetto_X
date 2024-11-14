@@ -1,0 +1,43 @@
+{% extends 'News/base.html' %}
+
+{% block title %}Dettagli {{ azienda.nome }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">{{ azienda.nome }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 30%">Nome Azienda</th>
+                                <td>{{ azienda.nome }}</td>
+                            </tr>
+                            <tr>
+                                <th>Descrizione</th>
+                                <td>{{ azienda.descrizione }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ubicazione</th>
+                                <td>{{ azienda.ubicazione|default:"Non specificato" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Partita Iva</th>
+                                <td>{{ azienda.p_iva|default:"Non specificata" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'update-azienda' azienda.pk %}" class="btn btn-primary me-2">Modifica</a>
+                <a href="{% url 'aziende' %}" class="btn btn-secondary">Torna alla lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,21 +1,32 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziende</title>
-</head>
-<body>
+{% extends 'News/base.html' %}
 
-        <h3>Lista Aziende</h3>
+{% block title %}Aziende{% endblock %}
 
-    {% for x in azienda %}
-        {{ x.ut_registrazione}} <br>
-        {{ x.nome}} <br>
-        {{ x.ubicazione}} <br>
-        {{ x.p_iva}} <br>
-        {{ x.descrizione}} <br><br><br><hr>
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <h2 class="text-center mb-4">Lista Aziende</h2>
+        <div class="text-end mb-3">
+            <a href="{% url 'insert-azienda' %}" class="btn btn-primary">Aggiungi Azienda</a>
+        </div>
+    </div>
+    {% for az in azienda %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ az.nome }}</h5>
+                <p class="card-text">{{ az.descrizione|truncatewords:20 }}</p>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'update-azienda' az.pk %}" class="btn btn-primary">Modifica</a>
+                    <a href="{% url 'azienda-detail' az.pk %}" class="btn btn-info text-white">Dettagli</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center">Nessuna azienda presente</p>
+    </div>
     {% endfor %}
-
-</body>
-</html>
+</div>
+{% endblock %}
