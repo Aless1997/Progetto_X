@@ -1,0 +1,59 @@
+{% extends 'News/base.html' %}
+
+{% block title %}Dettagli {{ magazzino.descrizione }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">{{ magazzino.descrizione }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 30%">Codice Articolo</th>
+                                <td>{{ magazzino.codice_art }}</td>
+                            </tr>
+                            <tr>
+                                <th>Descrizione</th>
+                                <td>{{ magazzino.descrizione }}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantità Sotto Scorta</th>
+                                <td>{{ magazzino.qta_sotto_scorta|default:"Non specificato" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantità</th>
+                                <td>{{ magazzino.qta|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Valore Unitario</th>
+                                <td>{{ magazzino.valore_unitario|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Utente registrazione</th>
+                                <td>{{ magazzino.ut_registrazione|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Valore Totale</th>
+                                <td>{{ magazzino.valore_totale|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Situazione</th>
+                                <td>{{ magazzino.sotto_scorta|default:"Non specificata" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'update-azienda' magazzino.pk %}" class="btn btn-primary me-2">Modifica</a>
+                <a href="{% url 'magazzino' %}" class="btn btn-secondary">Torna alla lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

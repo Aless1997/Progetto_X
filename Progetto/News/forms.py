@@ -10,3 +10,8 @@ class InsertUtente(ModelForm):
     class Meta():
         model = Utente
         fields = "__all__"
+
+class InsertArticoli(ModelForm):
+    class Meta:
+        model = Magazzino
+        fields = '__all__'

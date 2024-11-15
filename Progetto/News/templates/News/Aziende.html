@@ -8,6 +8,7 @@
         <h2 class="text-center mb-4">Lista Aziende</h2>
         <div class="text-end mb-3">
             <a href="{% url 'insert-azienda' %}" class="btn btn-primary">Aggiungi Azienda</a>
+            <a href="{% url 'export_products_csv_az' %}" class="btn btn-primary">Esporta In Csv</a>
         </div>
     </div>
     {% for az in azienda %}

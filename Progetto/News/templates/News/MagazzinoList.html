@@ -1,0 +1,33 @@
+{% extends 'News/base.html' %}
+
+{% block title %}Magazzino{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 mb-4">
+        <h2 class="text-center mb-4">Lista Magazzino</h2>
+        <div class="text-end mb-3">
+            <a href="{% url 'insert-articolo' %}" class="btn btn-primary me-2">Nuovo Articolo</a>
+            <a href="{% url 'export-articolo' %}" class="btn btn-success">Esporta CSV</a>
+        </div>
+    </div>
+    {% for mag in magazzino %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ mag.codice_art }}</h5>
+                <p class="card-text">{{ mag.descrizione|truncatewords:20 }}</p>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'update-articolo' mag.pk %}" class="btn btn-primary">Modifica</a>
+                    <a href="{% url 'magazzino-detail' mag.pk %}" class="btn btn-info text-white">Dettagli</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center">Nessun articolo presente</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
