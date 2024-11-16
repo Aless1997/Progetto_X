@@ -27,7 +27,7 @@ class Azienda(models.Model):
         verbose_name_plural = 'Aziende'
 
     def __str__(self):
-        return f"{self.nome} {self.descrizione}"
+        return f"{self.nome} {self.ubicazione}"
 
 class Magazzino(models.Model):
     codice_art = models.CharField(max_length=12, blank=False, null=False)

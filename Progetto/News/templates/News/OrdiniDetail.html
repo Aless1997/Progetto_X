@@ -1,0 +1,47 @@
+{% extends 'News/base.html' %}
+
+{% block title %}Dettagli {{ ordini.cliente }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">{{ ordini.cliente }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 30%">Codice Articolo</th>
+                                <td>{{ ordini.articolo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantità</th>
+                                <td>{{ ordini.qta }}</td>
+                            </tr>
+                            <tr>
+                                <th>Verifica articolo</th>
+                                <td>{{ ordini.verifica|default:"Non specificato" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Data Consegna</th>
+                                <td>{{ ordini.data_consegna|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Data Inserimento</th>
+                                <td>{{ ordini.data_inserimento|default:"Non specificata" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'update-ordini' ordini.pk %}" class="btn btn-primary me-2">Modifica</a>
+                <a href="{% url 'ordini' %}" class="btn btn-secondary">Torna alla lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

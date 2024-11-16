@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from News.views import area_personale
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('aziende/', include('News.urls'))
+    path('aziende/', include('News.urls')),
+    path('accounts/profile/', area_personale, name='area_personale'),
 ]

@@ -1,0 +1,10 @@
+{% extends 'News/base.html' %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Sei stato disconnesso con successo.</h2>
+    <a href="{% url 'login' %}">Accedi di nuovo</a>
+</div>
+{% endblock %}
