@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Utente(models.Model):
     nome = models.CharField(max_length=25, blank=False)
@@ -28,7 +29,30 @@ class Azienda(models.Model):
 
     def __str__(self):
         return f"{self.nome} {self.ubicazione}"
+    
+class Fornitore(models.Model):
+    nome = models.CharField(max_length=250, null=False)
+    cognome = models.CharField(max_length=250, null=False)
+    residenza = models.CharField(max_length=250, null=False)
+    telefono = models.IntegerField()
+    data_regist = models.DateField(auto_now=True)
+    
+    @property
+    def spedizione(self):
+        if self.residenza == 'Italia':
+            return f"Tempo di spedizione 3 giorni lavorativi"
+        else:
+            return f"Tempo di spedizione 10 giorni lavorativi"
+        
+    note = models.TextField(max_length=250, null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Fornitore"
+        verbose_name_plural = "Fornitore"
+
+    def __str__(self):
+        return f"{self.nome} {self.cognome}"
+    
 class Magazzino(models.Model):
     codice_art = models.CharField(max_length=12, blank=False, null=False)
     descrizione = models.CharField(max_length=12, blank=False, null=False)  
@@ -36,7 +60,8 @@ class Magazzino(models.Model):
     qta = models.IntegerField()
     valore_unitario = models.IntegerField()
     ut_registrazione = models.ForeignKey(Utente, on_delete=models.CASCADE, related_name='Ut_magazzino')
-    
+    Fornitore = models.ForeignKey(Fornitore, on_delete=models.CASCADE, related_name='FMagazzino')
+
     @property
     def valore_totale(self):
         return self.qta * self.valore_unitario
@@ -79,3 +104,6 @@ class Ordine(models.Model):
 
     
 
+
+    
+        

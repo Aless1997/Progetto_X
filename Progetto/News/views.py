@@ -10,6 +10,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import CambiaUtenteForm
 
+def home(request):
+    return render(request, 'News/base.html')    
 
 def aziende(request):
     azienda = Azienda.objects.all()
@@ -159,7 +161,7 @@ def ordiniDetail(request, pk):
 class OrdiniUpdateViews(UpdateView):
     model = Ordine              
     form_class = InsertOrdine
-    template_name = 'News/InsertOrdini.html'
+    template_name = 'News/InsertOrdine.html'
     success_url = reverse_lazy('ordini')
 
 def export_ordini(request):
