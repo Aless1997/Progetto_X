@@ -29,7 +29,10 @@ class Azienda(models.Model):
 
     def __str__(self):
         return f"{self.nome} {self.ubicazione}"
-    
+'''----------------------------------------------------------------------------------------------------------------------------------'''
+
+#------------------------------------------------------------Nuova add. 21/11/2024
+
 class Fornitore(models.Model):
     nome = models.CharField(max_length=250, null=False)
     cognome = models.CharField(max_length=250, null=False)
@@ -53,6 +56,7 @@ class Fornitore(models.Model):
     def __str__(self):
         return f"{self.nome} {self.cognome}"
     
+'''----------------------------------------------------------------------------------------------------------------------------------'''    
 class Magazzino(models.Model):
     codice_art = models.CharField(max_length=12, blank=False, null=False)
     descrizione = models.CharField(max_length=12, blank=False, null=False)  

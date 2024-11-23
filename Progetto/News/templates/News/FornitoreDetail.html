@@ -1,0 +1,55 @@
+{% extends 'News/base.html' %}
+
+{% block title %}Dettagli {{ fornitore.nome }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">{{ fornitore.nome }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 30%">Nome Fornitore</th>
+                                <td>{{ fornitore.nome }}</td>
+                            </tr>
+                            <tr>
+                                <th>Cognome</th>
+                                <td>{{ fornitore.cognome }}</td>
+                            </tr>
+                            <tr>
+                                <th>Residenza</th>
+                                <td>{{ fornitore.residenza|default:"Non specificato" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Telefono</th>
+                                <td>{{ fornitore.telefono|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Data Inserimento</th>
+                                <td>{{ fornitore.data_regist|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Spedizione</th>
+                                <td>{{ fornitore.spedizione|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Note</th>
+                                <td>{{ fornitore.note|default:"Non specificata" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'update-ordini' fornitore.pk %}" class="btn btn-primary me-2">Modifica</a>
+                <a href="{% url 'fornitore_list' %}" class="btn btn-secondary">Torna alla lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

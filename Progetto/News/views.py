@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse, request, response
-from News.models import Azienda, Utente, Magazzino, Ordine
-from News.forms import InsertAzienda, InsertUtente, InsertArticoli, InsertOrdine,RegsitraForm
+from News.models import Azienda, Utente, Magazzino, Ordine, Fornitore
+from News.forms import InsertAzienda, InsertUtente, InsertArticoli, InsertOrdine,RegsitraForm, InsertFornitore
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -89,7 +89,6 @@ def export_aziende(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="aziende.csv"'
     df.to_csv(path_or_buf=response, index=False)
-    
     return response
 
 #Gestione magazzino
@@ -199,3 +198,40 @@ def cambia_utente(request):
 @login_required
 def area_personale(request):
     return render(request, 'News/area_personale.html')
+
+def fornitore_list(request):
+    fornitore = Fornitore.objects.all()
+    context = {
+        'fornitore':fornitore,
+    }
+    return render(request, 'News/fornitoreList.html', context)
+
+def fornitore_detail(reques, pk):
+    fornitore = get_object_or_404(Fornitore, pk=pk)
+    context = {
+        'fornitore':fornitore,
+    }
+    return render(reques, 'News/FornitoreDetail.html', context)
+
+class FornitoreUpdate(UpdateView):
+    model = Fornitore              
+    form_class = InsertFornitore
+    template_name = 'News/InsertFornitore.html'
+    success_url = reverse_lazy('fornitore_list')
+
+def insertFornitore(request):
+    if request.method == 'POST':
+        form = InsertFornitore(request.POST)
+        if form.is_valid():
+            form.save()
+    form = InsertFornitore()
+    context = {"form":form}
+    return render(request, 'News/InsertFornitore.html', context)
+
+def export_fornitore(request):
+    aziende = Fornitore.objects.all().values()
+    df = pd.DataFrame(aziende)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="fornitori.csv"'
+    df.to_csv(path_or_buf=response, index=False)
+    return response

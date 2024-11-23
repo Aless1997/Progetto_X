@@ -34,4 +34,9 @@ from django.contrib.auth.models import User
 class CambiaUtenteForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email']  # Aggiungi altri campi se necessario
+        fields = ['username', 'email']  
+
+class InsertFornitore(forms.ModelForm):
+    class Meta():
+        model = Fornitore
+        fields = '__all__'
