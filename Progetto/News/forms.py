@@ -40,3 +40,9 @@ class InsertFornitore(forms.ModelForm):
     class Meta():
         model = Fornitore
         fields = '__all__'
+
+'''---------------------------------------------------RDA-------------------------------------------------------------------------------'''    
+class InsertRda(ModelForm):
+    class Meta():
+        model=Rda
+        fields = '__all__'

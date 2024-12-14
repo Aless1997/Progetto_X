@@ -106,8 +106,24 @@ class Ordine(models.Model):
         verbose_name = 'Ordine'
         verbose_name_plural = 'Ordini'
 
+'''---------------------------------------------------------------------------------------RDA-----------------------------------------------------------------------------------------------------------------'''    
     
+class Rda(models.Model):
+    utente = models.ForeignKey(Utente, on_delete=models.CASCADE, related_name='URda')
+    articolo = models.ForeignKey(Magazzino, on_delete=models.CASCADE, related_name='ARda')
+    qta_ordine = models.IntegerField()
 
-
+    @property
+    def valore_tot(self):
+        x = self.qta_ordine * self.articolo.valore_unitario
+        return f"Costo totale: {x}"
     
-        
+    data_richiesta = models.DateField()
+    data_inserimento= models.DateField()
+
+    def __str__(self):
+        return f"{self.articolo} {self.valore_tot}"
+    
+    class Meta:
+        verbose_name = 'Rda'
+        verbose_name_plural = 'Rda'        

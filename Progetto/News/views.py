@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse, request, response
-from News.models import Azienda, Utente, Magazzino, Ordine, Fornitore
-from News.forms import InsertAzienda, InsertUtente, InsertArticoli, InsertOrdine,RegsitraForm, InsertFornitore
+from News.models import Azienda, Utente, Magazzino, Ordine, Fornitore, Rda
+from News.forms import InsertAzienda,InsertRda,InsertUtente, InsertArticoli, InsertOrdine,RegsitraForm, InsertFornitore
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -235,3 +235,42 @@ def export_fornitore(request):
     response['Content-Disposition'] = 'attachment; filename="fornitori.csv"'
     df.to_csv(path_or_buf=response, index=False)
     return response
+
+'''----------------------------------------------------------------------------------RDA---------------------------------------------------------------------------------------------------------------------'''    
+
+def rda(request):
+    rda = Rda.objects.all()
+    context = {
+        'rda' : rda,
+    }
+    return render(request, 'News/RdaList.html', context)
+
+def insertRda(request):
+    if request.method == 'POST':
+        form = InsertRda(request.POST)
+        if form.is_valid():
+            form.save()
+    form = InsertRda()
+    context = {"form":form}
+    return render(request, 'News/InsertRda.html', context)
+
+def export_rda(request):
+    rda = Rda.objects.all().values()
+    df = pd.DataFrame(rda)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="fornitori.csv"'
+    df.to_csv(path_or_buf=response, index=False)
+    return response
+
+class RdaUpdateView(UpdateView):
+    model = Rda             
+    form_class = InsertRda
+    template_name = 'News/InsertRda.html'
+    success_url = reverse_lazy('Rda_List')
+
+def rdaDetail(request, pk):
+    rda = get_object_or_404(Rda, pk=pk)
+    context = {
+        'rda': rda,
+    }
+    return render(request, 'News/RdaDetail.html', context)

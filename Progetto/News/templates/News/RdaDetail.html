@@ -1,0 +1,47 @@
+{% extends 'News/base.html' %}
+
+{% block title %}Dettagli {{ rda.utente }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title mb-0">{{ rda.utente }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th style="width: 30%">Codice Articolo</th>
+                                <td>{{ rda.articolo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Quantità Ordine</th>
+                                <td>{{ rda.qta_ordine }}</td>
+                            </tr>
+                            <tr>
+                                <th>Valore Rda</th>
+                                <td>{{ rda.valore_tot|default:"Non specificato" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Data Consegna</th>
+                                <td>{{ rda.data_richiesta|default:"Non specificata" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Data Inserimento</th>
+                                <td>{{ ordini.data_inserimento|default:"Non specificata" }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'rda-update' rda.pk %}" class="btn btn-primary me-2">Modifica</a>
+                <a href="{% url 'Rda_List' %}" class="btn btn-secondary">Torna alla lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from News.views import aziende,ordini,export_fornitore,FornitoreUpdate,registrazione,insertFornitore,fornitore_detail,fornitore_list,export_ordini,area_personale,cambia_utente,OrdiniUpdateViews,ordiniDetail,insertOrdine,export_utenti,insertArticoli,MagazzinoUpdateViews,export_articolo, magazzino_detail,magazzino, export_aziende ,utenti,insertAzienda, insertUtente, utente_detail,azienda_detail,AziendaUpdateViews, UtenteUpdateViews   
+from News.views import rda,insertRda,RdaUpdateView,rdaDetail,export_rda,aziende,ordini,export_fornitore,FornitoreUpdate,registrazione,insertFornitore,fornitore_detail,fornitore_list,export_ordini,area_personale,cambia_utente,OrdiniUpdateViews,ordiniDetail,insertOrdine,export_utenti,insertArticoli,MagazzinoUpdateViews,export_articolo, magazzino_detail,magazzino, export_aziende ,utenti,insertAzienda, insertUtente, utente_detail,azienda_detail,AziendaUpdateViews, UtenteUpdateViews   
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -40,7 +40,13 @@ urlpatterns = [
     path('FornitoreDetail/<int:pk>/',fornitore_detail, name='fornitore-detail'),
     path('InsertFornitore/', insertFornitore, name='insert-fornitore'),
     path('fornitore/<int:pk>/edit', FornitoreUpdate.as_view(), name="fornitore-update"),
-    path('export-fornitori/',export_fornitore, name='export-fornitore')
+    path('export-fornitori/',export_fornitore, name='export-fornitore'),
+    #rda
+    path('RdaList/', rda, name='Rda_List'),
+    path('RdaExport/', export_rda, name='Export_Rda'),
+    path('InsertRda/', insertRda, name='Insert_Rda'),
+    path('RdaDetail/<int:pk>/',rdaDetail, name='rda_detail'),
+    path('RdaUpdate/<int:pk>/edit/', RdaUpdateView.as_view(), name='rda-update')
 ]
 
 
